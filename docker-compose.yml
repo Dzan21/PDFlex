@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: pdflex_db
+    restart: always
+    environment:
+      POSTGRES_USER: pdflex
+      POSTGRES_PASSWORD: pdflex123
+      POSTGRES_DB: pdflex_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:

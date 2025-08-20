@@ -1,0 +1,48 @@
+from fastapi import FastAPI
+from sqlalchemy import text
+from app import db
+from app.routes_users import router as users_router
+from app.routes_billing import router as billing_router
+
+from app import routes_documents
+app.include_router(routes_documents.router, prefix="/documents")
+from app import routes_documents
+app.include_router(routes_documents.router, prefix="/documents")
+app = FastAPI(title="PDFlex API")
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+@app.get("/db-check")
+def db_check():
+    try:
+        with db.engine.connect() as conn:
+            version = conn.execute(text("SELECT version();")).scalar_one()
+        return {"database_version": version}
+    except Exception as e:
+        return {"error": str(e)}
+
+app.include_router(users_router)
+app.include_router(billing_router)
+
+# --- docs/upload routes ---
+from app.routes_docs import router as docs_router
+app.include_router(docs_router)
+
+# --- documents routes ---
+from app.routes_documents import router as documents_router
+from app.routes_usage import router as usage_router
+app.include_router(documents_router)
+app.include_router(usage_router)
+
+# --- CORS ---
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8501", "http://127.0.0.1:8501", "http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
