@@ -1,1 +1,26 @@
-Generic single-database configuration.
+# PDFlex
+
+PDFlex je webová aplikácia pre prácu s PDF dokumentmi (ochrana heslom, OCR, konverzia do DOCX).  
+Používa FastAPI backend, PostgreSQL databázu a jednoduchý frontend.
+
+## Funkcie
+- 🔐 Ochrana PDF heslom
+- 🔄 Konverzia PDF → DOCX
+- 📝 OCR (rozpoznávanie textu z obrázkov)
+- 💸 Možnosť prispieť časť transakcie na charitu
+
+## Tech stack
+- **Backend**: Python (FastAPI), SQLAlchemy, PostgreSQL
+- **Frontend**: (dopíš ak máš React/HTML)
+- **Docker**: Compose pre DB a služby
+- **OCR**: Tesseract
+
+## Inštalácia (lokálne)
+```bash
+git clone https://github.com/TVOJ_USERNAME/PDFlex.git
+cd PDFlex/backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8001
+docker-compose up -d
