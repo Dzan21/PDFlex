@@ -33,3 +33,22 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8001
 
 docker-compose up --build
+
+API Endpoints (ukážka)
+
+	POST /documents/{id}/protect – ochrana PDF heslom
+	POST /documents/{id}/convert_docx – konverzia do Wordu
+	POST /documents/{id}/ocr_text – OCR rozpoznávanie
+
+Transakcie
+
+Každá operácia sa zapisuje do tabuľky transactions:
+	service (napr. protect, convert_docx)
+	amount_cents
+	charity_cents
+	charity_id
+	created_at
+
+Autor
+
+Projekt vytvoril Ján Vorčák ako ukážku backendovej aplikácie v Pythone.
